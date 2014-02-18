@@ -7,4 +7,10 @@ Timetrackr::Application.routes.draw do
     get "/forgot" => "devise/passwords#new", :as => :forgot
     get "/reset" => "devise/passwords#edit", :as => :reset
   end
+
+  get '/' => "time_logs#index", as: :root
+
+  resources :time_logs
+  resources :log_entries
+  resources :tasks
 end

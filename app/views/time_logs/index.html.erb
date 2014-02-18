@@ -1,0 +1,19 @@
+<html>
+  <body>
+    <div id="content" style="width: 840px; margin: 30px auto 0 auto;">
+      <div id="current_task" style="float: left;">
+        <p>Currently working on:<br><%= @current_task %></p>
+        <%= button_tag "Pause" %><%= button_tag "Stop" %>
+      </div>
+      <div id="task_list" style="float: right;">
+        <p>Select task from list, or enter new task name</p>
+        <%= text_field_tag "task_name", "", placeholder: "New Task Name" %>
+        <ul>
+          <% @tasks.each do |task| %>
+            <li><%= task.name %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
