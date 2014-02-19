@@ -8,6 +8,7 @@
       <div id="task_list" style="float: right;">
         <p>Select task from list, or enter new task name</p>
         <%= text_field_tag "task_name", "", placeholder: "New Task Name" %>
+        <%= button_tag "Start" %>
         <ul>
           <% @tasks.each do |task| %>
             <li><%= task.name %></li>
