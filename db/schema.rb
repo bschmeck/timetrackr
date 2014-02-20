@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140217055527) do
+ActiveRecord::Schema.define(:version => 20140220022521) do
 
   create_table "log_entries", :force => true do |t|
     t.datetime "started_at"
@@ -31,10 +31,10 @@ ActiveRecord::Schema.define(:version => 20140217055527) do
 
   create_table "time_logs", :force => true do |t|
     t.datetime "started_at"
-    t.datetime "ended_at"
+    t.datetime "finished_at"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|
