@@ -22,9 +22,15 @@
       </div>
     </div>
     <script type="text/javascript">
-	  var time_log = new Trackr.TimeLog(<%= @current_log ? @current_log.id : 0 %>, "<%= time_logs_path %>", "/time_logs/:id/finish");
-      $("#btn_start").click(function(){ time_log.start(); });
-	  $("#btn_finish").click(function(){ time_log.finish(); });
+      Trackr.config["log_start_url"] = "/time_logs";
+      Trackr.config["log_finish_url"] = "/time_logs/:log_id/finish";
+
+      <% if @current_log %>
+	    Trackr.start_existing_log(<%= @current_log.id %>);
+      <% end %>
+
+      $("#btn_start").click(function(){ Trackr.start_log(); });
+	  $("#btn_finish").click(function(){ Trackr.time_log.finish(); });
     </script>
   </body>
 </html>
