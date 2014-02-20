@@ -21,7 +21,8 @@
       </div>
     </div>
     <script type="text/javascript">
-      $("#btn_start").click(function(){ start_log(); });
+	  var time_log = new Trackr.TimeLog("<%= time_logs_path %>", "/time_logs/:id/finish");
+      $("#btn_start").click(function(){ time_log.start(); });
     </script>
   </body>
 </html>
