@@ -6,6 +6,7 @@
     <div id="content" style="width: 840px; margin: 30px auto 0 auto;">
       <div id="current_task" style="float: left;">
         <%= button_tag "Start Working", id: "btn_start" %>
+		<%= button_tag "Finish Working", id: "btn_finish" %>
         <p>Currently working on:<br><%= @current_task %></p>
         <%= button_tag "Pause" %><%= button_tag "Stop" %>
       </div>
@@ -23,6 +24,7 @@
     <script type="text/javascript">
 	  var time_log = new Trackr.TimeLog("<%= time_logs_path %>", "/time_logs/:id/finish");
       $("#btn_start").click(function(){ time_log.start(); });
+	  $("#btn_finish").click(function(){ time_log.finish(); });
     </script>
   </body>
 </html>

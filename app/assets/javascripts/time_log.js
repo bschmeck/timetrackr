@@ -11,3 +11,11 @@ Trackr.TimeLog.prototype.start = function() {
         me.id = data["log_id"];
     });
 };
+
+Trackr.TimeLog.prototype.finish = function() {
+    var me = this;
+    var url = this.completion.replace("/:id/", "/" + this.id + "/");
+    $.ajax({url: url, type: "POST"}).done(function(data){
+        alert("finished working");
+    });
+};
