@@ -5,8 +5,8 @@
   <body>
     <div id="content" style="width: 840px; margin: 30px auto 0 auto;">
       <div id="current_task" style="float: left;">
-        <%= button_tag "Start Working", id: "btn_start", style: @current_log ? "display: none;" : "" %>
-		<%= button_tag "Finish Working", id: "btn_finish", style: @current_log ? "" : "display: none;" %>
+        <%= button_tag "Start Working", id: "btn_start" %>
+		<%= button_tag "Finish Working", id: "btn_finish", style: "display: none;" %>
         <p>Currently working on:<br><%= @current_task %></p>
         <%= button_tag "Pause" %><%= button_tag "Stop" %>
       </div>
@@ -22,15 +22,14 @@
       </div>
     </div>
     <script type="text/javascript">
+      Trackr.init();
+
       Trackr.config["log_start_url"] = "/time_logs";
       Trackr.config["log_finish_url"] = "/time_logs/:log_id/finish";
 
       <% if @current_log %>
 	    Trackr.start_existing_log(<%= @current_log.id %>);
       <% end %>
-
-      $("#btn_start").click(function(){ Trackr.start_log(); });
-	  $("#btn_finish").click(function(){ Trackr.time_log.finish(); });
     </script>
   </body>
 </html>
