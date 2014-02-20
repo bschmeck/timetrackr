@@ -1,7 +1,11 @@
 <html>
+  <head>
+    <%# javascript_include_tag 'application' %>
+  </head>
   <body>
     <div id="content" style="width: 840px; margin: 30px auto 0 auto;">
       <div id="current_task" style="float: left;">
+        <%= button_tag "Start Working", id: "btn_start" %>
         <p>Currently working on:<br><%= @current_task %></p>
         <%= button_tag "Pause" %><%= button_tag "Stop" %>
       </div>
@@ -16,5 +20,8 @@
         </ul>
       </div>
     </div>
+    <script type="text/javascript">
+      $("#btn_start").click(function(){ start_log(); });
+    </script>
   </body>
 </html>
