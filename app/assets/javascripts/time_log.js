@@ -1,6 +1,8 @@
 var Trackr; if (!Trackr) Trackr = {};
 
-Trackr.TimeLog = function (creation, completion) {
+Trackr.TimeLog = function (id, creation, completion) {
+    if (id > 0)
+        this.id = id;
     this.creation = creation;
     this.completion = completion;
 };

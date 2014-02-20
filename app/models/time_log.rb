@@ -1,4 +1,10 @@
 class TimeLog < ActiveRecord::Base
+
+  scope :started, where("started_at IS NOT NULL")
+  scope :active, started.where(finished_at: nil)
+  scope :finished, where("finished_at IS NOT NULL")
+
+
   def start
     update_attributes(started_at: Time.now)
   end
