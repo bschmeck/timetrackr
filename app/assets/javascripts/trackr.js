@@ -6,9 +6,18 @@ Trackr.init = function() {
     this.config = {};
     this.$start_button = $("#btn_start");
     this.$finish_button = $("#btn_finish");
+    this.$new_task_name = $("#txt_new_task");
+    this.$new_task_button = $("#btn_new_task");
 
     this.$start_button.click(function(){ me.start_log(); });
 	this.$finish_button.click(function(){ me.finish_log(); });
+
+    this.$new_task_name.keyup(function(){
+        var disabled = "disabled";
+        if (me.$new_task_name.val()[0])
+            disabled = false;
+        me.$new_task_button.attr("disabled", disabled);
+    });
 };
 
 Trackr.start_log = function() {

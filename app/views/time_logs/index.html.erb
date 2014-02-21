@@ -12,8 +12,8 @@
       </div>
       <div id="task_list" style="float: right;">
         <p>Select task from list, or enter new task name</p>
-        <%= text_field_tag "task_name", "", placeholder: "New Task Name" %>
-        <%= button_tag "Start" %>
+        <%= text_field_tag "name", "", placeholder: "New Task Name", id: "txt_new_task" %>
+        <%= button_tag "Start", id: "btn_new_task", disabled: "disabled" %>
         <ul>
           <% @tasks.each do |task| %>
             <li><%= task.name %></li>
