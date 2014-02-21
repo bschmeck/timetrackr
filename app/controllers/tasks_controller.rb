@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  def create
-    render json: { error: "User must be logged in."}, status: 401 and return unless current_user
+  before_filter :json_user_required, only: [:create]
 
+  def create
     name = params[:name]
     render json: { error: "Cannot create task with blank name."}, status: 400 and return if name.blank?
 
