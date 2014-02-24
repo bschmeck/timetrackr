@@ -16,9 +16,10 @@ Trackr.TimeLog.prototype.start = function() {
     });
 };
 
-Trackr.TimeLog.prototype.finish = function() {
+Trackr.TimeLog.prototype.finish = function(callback) {
     var me = this;
     $.ajax({url: this.finish_url, type: "POST"}).done(function(data){
         alert("finished working");
+        callback();
     });
 };

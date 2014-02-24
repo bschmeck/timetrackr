@@ -14,7 +14,7 @@ Trackr.init = function() {
 
     this.$new_task_name.keyup(function(){
         var disabled = "disabled";
-        if (me.$new_task_name.val()[0])
+        if (me.time_log && me.$new_task_name.val()[0])
             disabled = false;
         me.$new_task_button.attr("disabled", disabled);
     });
@@ -38,8 +38,13 @@ Trackr.start_existing_log = function(id) {
 };
 
 Trackr.finish_log = function() {
-    this.time_log.finish();
+    var me = this;
+    this.$finish_button.attr("disabled", "disabled");
+    this.time_log.finish(function() {
+        me.time_log = null;
 
-    this.$start_button.show();
-    this.$finish_button.hide();
+        me.$start_button.show();
+        me.$finish_button.hide();
+        me.$finish_button.attr("disabled", false);
+    });
 };
