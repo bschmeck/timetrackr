@@ -26,6 +26,8 @@
 
       Trackr.config["log_start_url"] = "/time_logs";
       Trackr.config["log_finish_url"] = "/time_logs/:log_id/finish";
+      Trackr.config["task_start_url"] = "/time_logs/:log_id/log_entries";
+      Trackr.config["task_finish_url"] = "/time_logs/:log_id/log_entries/:entry_url/finish"
       Trackr.config["task_create_url"] = "/tasks";
 
       <% if @current_log %>

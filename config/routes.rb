@@ -14,7 +14,11 @@ Timetrackr::Application.routes.draw do
     member do
       post 'finish'
     end
+    resources :log_entries, only: [:create] do
+      member do
+        post 'finish'
+      end
+    end
   end
-  resources :log_entries
   resources :tasks, only: [:create, :index]
 end

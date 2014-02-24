@@ -6,14 +6,20 @@ Trackr.TimeLog = function () {
 
 Trackr.TimeLog.prototype.start = function() {
     if (this.id > 0) {
-        this.finish_url = Trackr.config["log_finish_url"].replace("/:log_id/", "/" + this.id + "/");
+        this.config_urls();
         return;
     };
     var me = this;
     $.ajax({url: Trackr.config["log_start_url"], type: "POST"}).done(function(data){
         me.id = data["log_id"];
-        me.finish_url = Trackr.config["log_finish_url"].replace("/:log_id/", "/" + me.id + "/");
+        me.config_urls();
     });
+};
+
+Trackr.TimeLog.prototype.config_urls = function() {
+    this.finish_url = Trackr.config["log_finish_url"].replace("/:log_id/", "/" + this.id + "/");
+    this.task_start_url = Trackr.config["task_start_url"].replace("/:log_id/", "/" + this.id + "/");
+    this.task_finish_url = Trackr.config["task_finish_url"].replace("/:log_id/", "/" + this.id + "/");
 };
 
 Trackr.TimeLog.prototype.finish = function(callback) {
