@@ -30,4 +30,12 @@ Trackr.TimeLog.prototype.finish = function(callback) {
     });
 };
 
-Trackr.TimeLog.prototype.start_task = function(task, callback) {};
+Trackr.TimeLog.prototype.start_task = function(task, callback) {
+    var me = this;
+    var payload = {task_id: task.id};
+    $.ajax({url: this.task_start_url, type: "POST", data: payload}).done(function(data){
+        this.entry = new Trackr.LogEntry(data.entry_id);
+        me.task_finish_url = me.task_finish_url.replace("/:entry_id/", "/" + this.entry.id + "/");
+        callback();
+    });
+};
