@@ -23,3 +23,5 @@ Trackr.TimeLog.prototype.finish = function(callback) {
         callback();
     });
 };
+
+Trackr.TimeLog.prototype.start_task = function(task, callback) {};

@@ -4,6 +4,8 @@ Trackr.init = function() {
     var me = this;
 
     this.config = {};
+    this.tasks = [];
+
     this.$start_button = $("#btn_start");
     this.$finish_button = $("#btn_finish");
     this.$new_task_name = $("#txt_new_task");
@@ -17,6 +19,12 @@ Trackr.init = function() {
         if (me.time_log && me.$new_task_name.val()[0])
             disabled = false;
         me.$new_task_button.attr("disabled", disabled);
+    });
+    this.$new_task_button.click(function(){
+        var task = Trackr.Task.create(me.$new_task_name.val(), function(task) {
+            me.add_task(task);
+            me.time_log.start_task(task);
+        });
     });
 };
 
@@ -47,4 +55,8 @@ Trackr.finish_log = function() {
         me.$finish_button.hide();
         me.$finish_button.attr("disabled", false);
     });
+};
+
+Trackr.add_task = function(task) {
+    this.tasks.push(task);
 };
