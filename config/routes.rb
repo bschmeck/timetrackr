@@ -10,11 +10,11 @@ Timetrackr::Application.routes.draw do
 
   get '/' => "time_logs#index", as: :root
 
-  resources :time_logs do
+  resources :time_logs, only: [:create, :index] do
     member do
       post 'finish'
     end
   end
   resources :log_entries
-  resources :tasks
+  resources :tasks, only: [:create]
 end
