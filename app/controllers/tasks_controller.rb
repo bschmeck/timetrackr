@@ -1,5 +1,9 @@
 class TasksController < ApplicationController
-  before_filter :json_user_required, only: [:create]
+  before_filter :json_user_required, only: [:create, :index]
+
+  def index
+    render json: current_user.tasks.map{|task| { task_id: task.id, task_name: task.name} }
+  end
 
   def create
     name = params[:name]

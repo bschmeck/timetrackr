@@ -16,5 +16,5 @@ Timetrackr::Application.routes.draw do
     end
   end
   resources :log_entries
-  resources :tasks, only: [:create]
+  resources :tasks, only: [:create, :index]
 end
