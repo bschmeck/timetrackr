@@ -7,7 +7,7 @@
       <div id="current_task" style="float: left;">
         <%= button_tag "Start Working", id: "btn_start" %>
 		<%= button_tag "Finish Working", id: "btn_finish", style: "display: none;" %>
-        <p>Currently working on:<br><%= @current_task %></p>
+        <p>Currently working on:<br><span id="spn_current_task"><%= @current_task || "--" %></span></p>
         <%= button_tag "Pause" %><%= button_tag "Stop" %>
       </div>
       <div id="tasks" style="float: right;">

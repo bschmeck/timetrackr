@@ -2,6 +2,8 @@ var Trackr; if (!Trackr) Trackr = {};
 
 Trackr.TimeLog = function () {
     this.id = 0;
+
+    this.$current_task_name = $("#spn_current_task");
 };
 
 Trackr.TimeLog.prototype.start = function() {
@@ -34,7 +36,8 @@ Trackr.TimeLog.prototype.start_task = function(task, callback) {
     var me = this;
     var payload = {task_id: task.id};
     $.ajax({url: this.task_start_url, type: "POST", data: payload}).done(function(data){
-        this.entry = new Trackr.LogEntry(data.entry_id);
+        me.$current_task_name.text(task.name);
+        me.entry = new Trackr.LogEntry(data.entry_id);
         me.task_finish_url = me.task_finish_url.replace("/:entry_id/", "/" + this.entry.id + "/");
         callback();
     });

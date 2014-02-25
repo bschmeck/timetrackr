@@ -4,7 +4,6 @@ class TimeLogsController < ApplicationController
 
   def index
     @current_log = current_user.time_logs.active.first
-    @current_task = "Email Triage"
     @tasks = current_user.tasks
   end
 
