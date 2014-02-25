@@ -38,7 +38,8 @@ Trackr.TimeLog.prototype.start_task = function(task, callback) {
     $.ajax({url: this.task_start_url, type: "POST", data: payload}).done(function(data){
         me.$current_task_name.text(task.name);
         me.entry = new Trackr.LogEntry(data.entry_id, me);
-        me.task_finish_url = me.task_finish_url.replace("/:entry_id/", "/" + this.entry.id + "/");
-        callback();
+        me.task_finish_url = me.task_finish_url.replace("/:entry_id/", "/" + me.entry.id + "/");
+        if (callback)
+            callback();
     });
 };
