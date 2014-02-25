@@ -10,14 +10,11 @@
         <p>Currently working on:<br><%= @current_task %></p>
         <%= button_tag "Pause" %><%= button_tag "Stop" %>
       </div>
-      <div id="task_list" style="float: right;">
+      <div id="tasks" style="float: right;">
         <p>Select task from list, or enter new task name</p>
         <%= text_field_tag "name", "", placeholder: "New Task Name", id: "txt_new_task" %>
         <%= button_tag "Start", id: "btn_new_task", disabled: "disabled" %>
-        <ul>
-          <% @tasks.each do |task| %>
-            <li><%= task.name %></li>
-          <% end %>
+        <ul id="task_list">
         </ul>
       </div>
     </div>
@@ -33,6 +30,11 @@
       <% if @current_log %>
 	    Trackr.start_existing_log(<%= @current_log.id %>);
       <% end %>
+
+      <% @tasks.each do |task| %>
+        Trackr.add_task(new Trackr.Task("<%= task.name %>", <%= task.id %>));
+      <% end %>
+
     </script>
   </body>
 </html>

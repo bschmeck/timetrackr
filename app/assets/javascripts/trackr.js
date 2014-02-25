@@ -10,6 +10,7 @@ Trackr.init = function() {
     this.$finish_button = $("#btn_finish");
     this.$new_task_name = $("#txt_new_task");
     this.$new_task_button = $("#btn_new_task");
+    this.$task_list = $("#task_list");
 
     this.$start_button.click(function(){ me.start_log(); });
 	this.$finish_button.click(function(){ me.finish_log(); });
@@ -58,5 +59,11 @@ Trackr.finish_log = function() {
 };
 
 Trackr.add_task = function(task) {
+    var me = this;
     this.tasks.push(task);
+    var elt = $("<li>", {
+        id: "task_" + task.id
+    }).text(task.name);
+    elt.click(function(){ me.time_log.start_task(task); });
+    this.$task_list.append(elt);
 };
