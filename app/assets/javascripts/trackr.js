@@ -5,6 +5,7 @@ Trackr.init = function() {
 
     this.config = {};
     this.tasks = ko.observableArray([]);
+    this.time_log = ko.observable();
 
     this.$start_button = $("#btn_start");
     this.$finish_button = $("#btn_finish");
@@ -17,30 +18,38 @@ Trackr.init = function() {
 
     this.$new_task_name.keyup(function(){
         var disabled = "disabled";
-        if (me.time_log && me.$new_task_name.val()[0])
+        if (me.time_log() && me.$new_task_name.val()[0])
             disabled = false;
         me.$new_task_button.attr("disabled", disabled);
     });
     this.$new_task_button.click(function(){
         var task = Trackr.Task.create(me.$new_task_name.val(), function(task) {
             me.add_task(task);
-            me.time_log.start_task(task);
+            me.time_log().start_task(task);
         });
     });
+
+    this.current_task_name = ko.computed(function() {
+        if (this.time_log()) {
+            return this.time_log().current_task_name();
+        }
+        return "--";
+    }, this);
+
 };
 
 Trackr.start_log = function() {
-    this.time_log = new Trackr.TimeLog();
-    this.time_log.start();
+    this.time_log(new Trackr.TimeLog());
+    this.time_log().start();
 
     this.$start_button.hide();
     this.$finish_button.show();
 };
 
 Trackr.start_existing_log = function(id) {
-    this.time_log = new Trackr.TimeLog();
-    this.time_log.id = id;
-    this.time_log.start();
+    this.time_log(new Trackr.TimeLog());
+    this.time_log().id = id;
+    this.time_log().start();
 
     this.$start_button.hide();
     this.$finish_button.show();
@@ -49,8 +58,8 @@ Trackr.start_existing_log = function(id) {
 Trackr.finish_log = function() {
     var me = this;
     this.$finish_button.attr("disabled", "disabled");
-    this.time_log.finish(function() {
-        me.time_log = null;
+    this.time_log().finish(function() {
+        me.time_log(null);
 
         me.$start_button.show();
         me.$finish_button.hide();
