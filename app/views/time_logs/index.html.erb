@@ -15,7 +15,7 @@
         <%= text_field_tag "name", "", placeholder: "New Task Name", id: "txt_new_task" %>
         <%= button_tag "Start", id: "btn_new_task", disabled: "disabled" %>
         <ul id="task_list" data-bind="foreach: tasks">
-          <li data-bind="text: name, click: $root.time_log.start_task"></li>
+          <li class="task" data-bind="text: name"></li>
         </ul>
       </div>
     </div>
@@ -38,6 +38,11 @@
         Trackr.add_task(new Trackr.Task("<%= task.name %>", <%= task.id %>));
       <% end %>
 
+     $(document).ready(function() {
+       $(".task").click(function() {
+         Trackr.time_log.start_task(ko.dataFor(this));
+       });
+     });
     </script>
   </body>
 </html>
