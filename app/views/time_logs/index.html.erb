@@ -14,13 +14,16 @@
         <p>Select task from list, or enter new task name</p>
         <%= text_field_tag "name", "", placeholder: "New Task Name", id: "txt_new_task" %>
         <%= button_tag "Start", id: "btn_new_task", disabled: "disabled" %>
-        <ul id="task_list">
+        <ul id="task_list" data-bind="foreach: tasks">
+          <li data-bind="text: name, click: $root.time_log.start_task"></li>
         </ul>
       </div>
     </div>
     <script type="text/javascript">
       Trackr.init();
 
+      ko.applyBindings(Trackr);
+     
       Trackr.config["log_start_url"] = "/time_logs";
       Trackr.config["log_finish_url"] = "/time_logs/:log_id/finish";
       Trackr.config["task_start_url"] = "/time_logs/:log_id/log_entries";

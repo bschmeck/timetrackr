@@ -4,7 +4,7 @@ Trackr.init = function() {
     var me = this;
 
     this.config = {};
-    this.tasks = [];
+    this.tasks = ko.observableArray([]);
 
     this.$start_button = $("#btn_start");
     this.$finish_button = $("#btn_finish");
@@ -59,11 +59,5 @@ Trackr.finish_log = function() {
 };
 
 Trackr.add_task = function(task) {
-    var me = this;
     this.tasks.push(task);
-    var elt = $("<li>", {
-        id: "task_" + task.id
-    }).text(task.name);
-    elt.click(function(){ me.time_log.start_task(task); });
-    this.$task_list.append(elt);
 };
