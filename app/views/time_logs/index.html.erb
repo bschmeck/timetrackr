@@ -2,16 +2,20 @@
   <head>
     <%# javascript_include_tag 'application' %>
     <style type="text/css">
-      li { cursor: pointer; }
+     li { cursor: pointer; }
+     #left_box { float: left; }
+     #right_box { float: right; }
     </style>
   </head>
   <body>
     <div id="content" style="width: 840px; margin: 30px auto 0 auto;">
-      <div id="current_task" style="float: left;">
+      <div id="left_box">
         <%= button_tag "Start Working", id: "btn_start" %>
 		<%= button_tag "Finish Working", id: "btn_finish", style: "display: none;" %>
-        <p>Currently working on:<br><span id="spn_current_task" data-bind="text: current_task_name"></span></p>
-        <%= button_tag "Pause" %><%= button_tag "Stop" %>
+        <div data-bind="visible: time_log">
+          <p>Currently working on:<br><span id="spn_current_task" data-bind="text: current_task_name"></span></p>
+          <%= button_tag "Pause" %><%= button_tag "Stop" %>
+        </div>
         <div data-bind="visible: queued_tasks().length > 0">
           <p>Queued Tasks:</p>
           <ul id="task_queue" data-bind="foreach: queued_tasks">
@@ -19,6 +23,7 @@
           </ul>
         </div>
       </div>
+
       <div id="tasks" style="float: right;">
         <p>Select task from list, or enter new task name</p>
         <%= text_field_tag "name", "", placeholder: "New Task Name", id: "txt_new_task" %>
