@@ -4,6 +4,7 @@ Trackr.TimeLog = function () {
     this.id = 0;
 
     this.current_task_name = ko.observable("--");
+    this.task_queue = ko.observableArray([]);
 };
 
 Trackr.TimeLog.prototype.start = function() {
@@ -42,4 +43,12 @@ Trackr.TimeLog.prototype.start_task = function(task, callback) {
         if (callback)
             callback();
     });
+};
+
+Trackr.TimeLog.prototype.enqueue_task = function(task) {
+    this.task_queue.unshift(task);
+};
+
+Trackr.TimeLog.prototype.dequeue_task = function() {
+    return this.task_queue.shift();
 };
