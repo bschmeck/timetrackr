@@ -38,7 +38,7 @@ Trackr.init = function() {
 
     this.queued_tasks = ko.computed(function() {
         if (this.time_log()) {
-            return return this.time_log().task_queue();
+            return this.time_log().task_queue();
         }
         return [];
     }, this);
