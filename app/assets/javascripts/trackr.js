@@ -5,74 +5,73 @@ Trackr.init = function() {
 
     this.config = {};
     this.tasks = ko.observableArray([]);
-    this.time_log = ko.observable();
+    this.timeLog = ko.observable();
 
-    this.$start_button = $("#btn_start");
-    this.$finish_button = $("#btn_finish");
-    this.$new_task_name = $("#txt_new_task");
-    this.$new_task_button = $("#btn_new_task");
-    this.$task_list = $("#task_list");
+    this.$startButton = $("#btn_start");
+    this.$finishButton = $("#btn_finish");
+    this.$newTaskName = $("#txt_new_task");
+    this.$newTaskButton = $("#btn_new_task");
+    
+    this.$startButton.click(function(){ me.startLog(); });
+	this.$finishButton.click(function(){ me.finishLog(); });
 
-    this.$start_button.click(function(){ me.start_log(); });
-	this.$finish_button.click(function(){ me.finish_log(); });
-
-    this.$new_task_name.keyup(function(){
+    this.$newTaskName.keyup(function(){
         var disabled = "disabled";
-        if (me.time_log() && me.$new_task_name.val()[0])
+        if (me.timeLog() && me.$newTaskName.val()[0])
             disabled = false;
-        me.$new_task_button.attr("disabled", disabled);
+        me.$newTaskButton.attr("disabled", disabled);
     });
-    this.$new_task_button.click(function(){
-        var task = Trackr.Task.create(me.$new_task_name.val(), function(task) {
-            me.add_task(task);
-            me.time_log().start_task(task);
+    this.$newTaskButton.click(function(){
+        var task = Trackr.Task.create(me.$newTaskName.val(), function(task) {
+            me.addTask(task);
+            me.timeLog().startTask(task);
         });
     });
 
-    this.current_task_name = ko.computed(function() {
-        if (this.time_log()) {
-            return this.time_log().current_task_name();
+    this.currentTaskName = ko.computed(function() {
+        if (this.timeLog()) {
+            return this.timeLog().currentTaskName();
         }
         return "--";
     }, this);
 
-    this.queued_tasks = ko.computed(function() {
-        if (this.time_log()) {
-            return this.time_log().task_queue();
+    this.queuedTasks = ko.computed(function() {
+        if (this.timeLog()) {
+            return this.timeLog().taskQueue();
         }
         return [];
     }, this);
 };
 
-Trackr.start_log = function() {
-    this.time_log(new Trackr.TimeLog());
-    this.time_log().start();
+Trackr.startLog = function() {
+    this.timeLog(new Trackr.TimeLog());
+    this.timeLog().start();
 
-    this.$start_button.hide();
-    this.$finish_button.show();
+    this.$startButton.hide();
+    this.$finishButton.show();
 };
 
-Trackr.start_existing_log = function(id) {
-    this.time_log(new Trackr.TimeLog());
-    this.time_log().id = id;
-    this.time_log().start();
+Trackr.startExistingLog = function(id) {
+    this.timeLog(new Trackr.TimeLog());
+    this.timeLog().id = id;
+    this.timeLog().start();
 
-    this.$start_button.hide();
-    this.$finish_button.show();
+    this.$startButton.hide();
+    this.$finishButton.show();
 };
 
-Trackr.finish_log = function() {
+Trackr.finishLog = function() {
     var me = this;
-    this.$finish_button.attr("disabled", "disabled");
-    this.time_log().finish(function() {
-        me.time_log(null);
+    this.$finishButton.attr("disabled", "disabled");
+    this.timeLog().finish(function() {
+        me.timeLog(null);
 
-        me.$start_button.show();
-        me.$finish_button.hide();
-        me.$finish_button.attr("disabled", false);
+        me.$startButton.show();
+        me.$finishButton.hide();
+        me.$finishButton.attr("disabled", false);
     });
 };
 
-Trackr.add_task = function(task) {
+Trackr.addTask = function(task) {
     this.tasks.push(task);
 };

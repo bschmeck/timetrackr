@@ -12,13 +12,13 @@
       <div id="left_box">
         <%= button_tag "Start Working", id: "btn_start" %>
 		<%= button_tag "Finish Working", id: "btn_finish", style: "display: none;" %>
-        <div data-bind="visible: time_log">
-          <p>Currently working on:<br><span id="spn_current_task" data-bind="text: current_task_name"></span></p>
+        <div data-bind="visible: timeLog">
+          <p>Currently working on:<br><span id="spn_current_task" data-bind="text: currentTaskName"></span></p>
           <%= button_tag "Pause" %><%= button_tag "Stop" %>
         </div>
-        <div data-bind="visible: queued_tasks().length > 0">
+        <div data-bind="visible: queuedTasks().length > 0">
           <p>Queued Tasks:</p>
-          <ul id="task_queue" data-bind="foreach: queued_tasks">
+          <ul id="task_queue" data-bind="foreach: queuedTasks">
             <li class="task" data-bind="text: name"></li>
           </ul>
         </div>
@@ -38,23 +38,23 @@
 
       ko.applyBindings(Trackr);
      
-      Trackr.config["log_start_url"] = "/time_logs";
-      Trackr.config["log_finish_url"] = "/time_logs/:log_id/finish";
-      Trackr.config["task_start_url"] = "/time_logs/:log_id/log_entries";
-      Trackr.config["task_finish_url"] = "/time_logs/:log_id/log_entries/:entry_id/finish"
-      Trackr.config["task_create_url"] = "/tasks";
+      Trackr.config["logStartUrl"] = "/time_logs";
+      Trackr.config["logFinishUrl"] = "/time_logs/:log_id/finish";
+      Trackr.config["taskStartUrl"] = "/time_logs/:log_id/log_entries";
+      Trackr.config["taskFinishUrl"] = "/time_logs/:log_id/log_entries/:entry_id/finish"
+      Trackr.config["taskCreateUrl"] = "/tasks";
 
       <% if @current_log %>
-	    Trackr.start_existing_log(<%= @current_log.id %>);
+	    Trackr.startExistingLog(<%= @current_log.id %>);
       <% end %>
 
       <% @tasks.each do |task| %>
-        Trackr.add_task(new Trackr.Task("<%= task.name %>", <%= task.id %>));
+        Trackr.addTask(new Trackr.Task("<%= task.name %>", <%= task.id %>));
       <% end %>
 
      $(document).ready(function() {
        $(".task").click(function() {
-         Trackr.time_log().start_task(ko.dataFor(this));
+         Trackr.timeLog().startTask(ko.dataFor(this));
        });
      });
     </script>
